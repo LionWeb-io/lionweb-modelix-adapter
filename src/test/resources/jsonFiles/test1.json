@@ -1,0 +1,39 @@
+{
+  "serializationFormatVersion": "",
+  "languages": [],
+  "nodes": [
+    {
+      "id": "courses",
+      "classifier": {
+        "language": null,
+        "version": null,
+        "key": null
+      },
+      "properties": [
+        {
+          "property": {
+            "language": null,
+            "version": null,
+            "key": "partition"
+          },
+          "value": "true"
+        }
+      ],
+      "containments": [
+        {
+          "containment": {
+            "language": null,
+            "version": null,
+            "key": "modules"
+          },
+          "children": [
+            "4294967309"
+          ]
+        }
+      ],
+      "references": [],
+      "annotations": "",
+      "parent": null
+    }
+  ]
+}

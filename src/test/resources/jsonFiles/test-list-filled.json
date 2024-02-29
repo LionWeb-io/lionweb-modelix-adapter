@@ -1,0 +1,28 @@
+{
+  "serializationFormatVersion": "",
+  "languages": [],
+  "nodes": [
+    {
+      "id": "someNewPartition",
+      "classifier": {
+        "language": null,
+        "version": null,
+        "key": null
+      },
+      "properties": [
+        {
+          "property": {
+            "language": null,
+            "version": null,
+            "key": "partition"
+          },
+          "value": "true"
+        }
+      ],
+      "containments": [],
+      "references": [],
+      "annotations": "",
+      "parent": null
+    }
+  ]
+}

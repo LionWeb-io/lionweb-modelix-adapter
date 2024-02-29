@@ -1,0 +1,110 @@
+{
+  "serializationFormatVersion": "2023.1",
+  "languages": [
+    {
+      "key": "myLanguage",
+      "version": "2"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ddd",
+      "classifier": {
+        "key": "myConceptId",
+        "language": "myLanguage",
+        "version": "2"
+      },
+      "properties": [
+      ],
+      "containments": [
+      ],
+      "references": [
+        {
+          "reference": {
+            "key": "emptyReferenceId",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "targets": [
+          ]
+        },
+        {
+          "reference": {
+            "key": "singleReferenceId",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "targets": [
+            {
+              "resolveInfo": "some name",
+              "reference": "dee"
+            }
+          ]
+        },
+        {
+          "reference": {
+            "key": "multiReferenceId",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "targets": [
+            {
+              "resolveInfo": "self-reference",
+              "reference": "ddd"
+            },
+            {
+              "resolveInfo": "only resolve info",
+              "reference": null
+            }
+          ]
+        },
+        {
+          "reference": {
+            "key": "noResolveInfoReferenceId",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "targets": [
+            {
+              "resolveInfo": null,
+              "reference": "dee"
+            }
+          ]
+        },
+        {
+          "reference": {
+            "key": "neitherResolveInfoNorReferenceId",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "targets": [
+            {
+              "resolveInfo": null,
+              "reference": null
+            }
+          ]
+        }
+      ],
+      "annotations": [
+      ],
+      "parent": null
+    },
+    {
+      "id": "dee",
+      "classifier": {
+        "key": "differentConceptId",
+        "language": "myLanguage",
+        "version": "2"
+      },
+      "properties": [
+      ],
+      "containments": [
+      ],
+      "references": [
+      ],
+      "annotations": [
+      ],
+      "parent": null
+    }
+  ]
+}

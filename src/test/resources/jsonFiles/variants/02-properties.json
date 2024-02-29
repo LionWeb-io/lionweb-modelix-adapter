@@ -1,0 +1,109 @@
+{
+  "serializationFormatVersion": "2023.1",
+  "languages": [
+    {
+      "key": "myLanguage",
+      "version": "2"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "bbb",
+      "classifier": {
+        "key": "myConceptId",
+        "language": "myLanguage",
+        "version": "2"
+      },
+      "properties": [
+        {
+          "property": {
+            "key": "stringPropertyId",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "value": "my string value"
+        },
+        {
+          "property": {
+            "key": "integerPropertyId",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "value": "123"
+        },
+        {
+          "property": {
+            "key": "booleanPropertyId",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "value": "true"
+        },
+        {
+          "property": {
+            "key": "jsonPropertyId",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "value": "{ \"name\": \"Bob\" }"
+        },
+        {
+          "property": {
+            "key": "unsetPropertyId",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "value": ""
+        }
+      ],
+      "containments": [
+      ],
+      "references": [
+      ],
+      "annotations": [
+      ],
+      "parent": null
+    },
+    {
+      "id": "21",
+      "classifier": {
+        "key": "time_to_open",
+        "language": "myLanguage",
+        "version": "2"
+      },
+      "properties": [
+        {
+          "property": {
+            "key": "day",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "value": "tttt"
+        },
+        {
+          "property": {
+            "key": "starthour",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "value": "9"
+        },
+        {
+          "property": {
+            "key": "endhour",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "value": "5"
+        }
+      ],
+      "containments": [
+      ],
+      "references": [
+      ],
+      "annotations": [
+      ],
+      "parent": null
+    }
+  ]
+}

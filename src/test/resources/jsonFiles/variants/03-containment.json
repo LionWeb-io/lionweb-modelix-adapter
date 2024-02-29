@@ -1,0 +1,109 @@
+{
+  "serializationFormatVersion": "2023.1",
+  "languages": [
+    {
+      "key": "myLanguage",
+      "version": "2"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ccc",
+      "classifier": {
+        "key": "myConceptId",
+        "language": "myLanguage",
+        "version": "2"
+      },
+      "properties": [
+      ],
+      "containments": [
+        {
+          "containment": {
+            "key": "emptyContainmentId",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "children": [
+          ]
+        },
+        {
+          "containment": {
+            "key": "singleContainmentId",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "children": [
+            "cdd"
+          ]
+        },
+        {
+          "containment": {
+            "key": "multiContainmentId",
+            "language": "myLanguage",
+            "version": "2"
+          },
+          "children": [
+            "cee",
+            "cgg"
+          ]
+        }
+      ],
+      "references": [
+      ],
+      "annotations": [
+      ],
+      "parent": "someNewPartition"
+    },
+    {
+      "id": "cgg",
+      "classifier": {
+        "key": "differentConceptId",
+        "language": "myLanguage",
+        "version": "2"
+      },
+      "properties": [
+      ],
+      "containments": [
+      ],
+      "references": [
+      ],
+      "annotations": [
+      ],
+      "parent": "ccc"
+    },
+    {
+      "id": "cdd",
+      "classifier": {
+        "key": "otherConceptId",
+        "language": "myLanguage",
+        "version": "2"
+      },
+      "properties": [
+      ],
+      "containments": [
+      ],
+      "references": [
+      ],
+      "annotations": [
+      ],
+      "parent": "ccc"
+    },
+    {
+      "id": "cee",
+      "classifier": {
+        "key": "differentConceptId",
+        "language": "myLanguage",
+        "version": "2"
+      },
+      "properties": [
+      ],
+      "containments": [
+      ],
+      "references": [
+      ],
+      "annotations": [
+      ],
+      "parent": "ccc"
+    }
+  ]
+}

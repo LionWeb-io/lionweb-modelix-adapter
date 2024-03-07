@@ -1,18 +1,16 @@
 package io.lionweb.modelix.adapter
 
-import io.lionweb.modelix.adapter.createSerializationChunk
 import io.lionweb.lionweb.LanguageStructure
 import io.lionweb.lionweb.NodeStructure
 import io.lionweb.lionweb.SerializationChunk
 import kotlinx.serialization.json.Json
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeAll
-
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class LionwebUtilsKtTest {
 
-    @get:BeforeAll
     private val jsonInstance = Json {
         encodeDefaults = true
         prettyPrint = true

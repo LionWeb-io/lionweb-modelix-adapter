@@ -4,12 +4,12 @@ import io.lionweb.lionweb.SerializationChunk
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class JsonTests {
 
-    @get:BeforeAll
     private val jsonInstance = Json {
         encodeDefaults = true
         prettyPrint = true

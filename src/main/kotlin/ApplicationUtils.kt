@@ -18,7 +18,7 @@ suspend fun validateSerializationFormatVersion(serializationFormatVersion: Strin
         )
     }
 }
-suspend fun validatePartitionExsists(modelixURL: String, partitionName: String, call: ApplicationCall){
+suspend fun validatePartitionExists(modelixURL: String, partitionName: String, call: ApplicationCall){
     if (partitionName !in getModelClient(modelixURL).listRepositories().map { it.id }) {
         call.respond(
             message = "Partition '$partitionName' does not exist",

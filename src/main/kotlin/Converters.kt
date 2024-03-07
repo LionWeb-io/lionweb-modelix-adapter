@@ -15,7 +15,7 @@ import org.modelix.model.api.getDescendants
 import org.modelix.model.api.getNode
 
 fun transformToLionWebNode(modelixNode: INode, depthLimit: Int): List<NodeStructure> {
-    val nodeStructureList: MutableList<NodeStructure> = mutableListOf<NodeStructure>()
+    val nodeStructureList: MutableList<NodeStructure> = mutableListOf()
 
     // we add the start node in any case
     nodeStructureList.add(transformToLionWebNodeSingle(modelixNode))

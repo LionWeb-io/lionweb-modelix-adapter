@@ -136,10 +136,10 @@ fun Application.module() {
 
             // execute the request
             val modelClient = getModelClient(modelixFullUrl)
-            val existingPartitionNamesz = modelClient.listRepositories().map { it.id }
+            val existingPartitionNames = modelClient.listRepositories().map { it.id }
 
             // make sure they do not already exist
-            if (existingPartitionNamesz.any { existingPartitionNamesz.any { partitionChunks.map { aChunk -> aChunk.id }.contains(it) } }) {
+            if (existingPartitionNames.any { existingPartitionNames.any { partitionChunks.map { aChunk -> aChunk.id }.contains(it) } }) {
                 call.respond(
                     message = "Partition(s) already exist: $partitionChunks",
                     status = HttpStatusCode.UnprocessableEntity
@@ -165,7 +165,7 @@ fun Application.module() {
             validateSerializationFormatVersion(chunk.serializationFormatVersion, call)
 
             // get context to fail early
-            val existingPartitions = getModelClient(modelixFullUrl).listRepositories().map { it.id }
+            getModelClient(modelixFullUrl).listRepositories().map { it.id }
             val partitionChunks = chunk.nodes?.filter {
                 it.properties?.any { it2 -> (it2.property.key == "partition" && it2.value.toBoolean()) } ?: false
             }?.map { aChunk -> aChunk.id } ?: emptyList()
@@ -181,7 +181,7 @@ fun Application.module() {
             // todo: fail if we get any non partition=true chunks
 
             partitionChunks.forEach {
-                validatePartitionExsists(modelixFullUrl, it, call)
+                validatePartitionExists(modelixFullUrl, it, call)
             }
 
             // actually apply changes
@@ -197,7 +197,7 @@ fun Application.module() {
 
         put<Paths.bulkStore, SerializationChunk> { input, chunk ->
             validateSerializationFormatVersion(chunk.serializationFormatVersion, call)
-            validatePartitionExsists(modelixFullUrl, input.partition, call)
+            validatePartitionExists(modelixFullUrl, input.partition, call)
             // todo, further check the validity of the input? use schema for this? (e.g. chunk.node.id is actually a number?
 
             theLogger.info("Will attempt to store ${chunk.nodes?.size ?: 0} nodes")
@@ -246,7 +246,7 @@ fun Application.module() {
 
 
         get<Paths.bulkRetrieve> { input ->
-            validatePartitionExsists(modelixFullUrl, input.partition, call)
+            validatePartitionExists(modelixFullUrl, input.partition, call)
 
             var depth: Int = -1
             if (input.depthLimit != null) {
@@ -311,7 +311,7 @@ fun Application.module() {
 
 
         delete<Paths.bulkDelete> { input ->
-            validatePartitionExsists(modelixFullUrl, input.partition, call)
+            validatePartitionExists(modelixFullUrl, input.partition, call)
 
             theLogger.info("Will attempt to delete ${input.nodes.size} nodes")
             val modelClient = getModelClient(modelixFullUrl)

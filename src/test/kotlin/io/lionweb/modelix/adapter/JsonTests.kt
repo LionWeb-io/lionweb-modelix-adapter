@@ -1,3 +1,5 @@
+package io.lionweb.modelix.adapter
+
 import io.lionweb.lionweb.SerializationChunk
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

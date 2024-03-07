@@ -1,4 +1,4 @@
-package io.lionweb
+package io.lionweb.modelix.adapter
 
 import io.lionweb.lionweb.MetaPointer
 import io.lionweb.lionweb.NodeStructure

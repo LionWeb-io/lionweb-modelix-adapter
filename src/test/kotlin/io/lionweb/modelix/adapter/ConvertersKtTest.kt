@@ -1,17 +1,9 @@
-import io.lionweb.createSerializationChunk
-import io.lionweb.lionweb.LanguageStructure
-import io.lionweb.lionweb.NodeStructure
-import io.lionweb.lionweb.SerializationChunk
-import io.lionweb.transformToLionWebNode
-import io.lionweb.transformToModelix
-import kotlinx.serialization.encodeToString
+package io.lionweb.modelix.adapter
+
 import kotlinx.serialization.json.Json
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
 import org.modelix.model.api.PBranch
 import org.modelix.model.api.getRootNode
-import org.modelix.model.api.remove
 import org.modelix.model.client.IdGenerator
 import org.modelix.model.data.ModelData
 import org.modelix.model.lazy.CLTree
@@ -19,7 +11,6 @@ import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.operations.OTBranch
 import org.modelix.model.persistent.MapBaseStore
 import org.modelix.model.sync.bulk.ModelImporter
-import java.io.File
 
 
 class ConvertersKtTest {

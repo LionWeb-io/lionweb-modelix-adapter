@@ -1,12 +1,11 @@
+package io.lionweb.modelix.adapter
+
 import com.typesafe.config.ConfigFactory
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.config.*
 import io.ktor.server.testing.*
-import io.lionweb.config
 import io.lionweb.lionweb.SerializationChunk
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.Json
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.modelix.model.server.Main
 import kotlin.test.Test
-import org.modelix.model.sleep
 import kotlin.test.assertEquals
 
 

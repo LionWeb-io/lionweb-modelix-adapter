@@ -1,4 +1,6 @@
-import io.lionweb.createSerializationChunk
+package io.lionweb.modelix.adapter
+
+import io.lionweb.modelix.adapter.createSerializationChunk
 import io.lionweb.lionweb.LanguageStructure
 import io.lionweb.lionweb.NodeStructure
 import io.lionweb.lionweb.SerializationChunk

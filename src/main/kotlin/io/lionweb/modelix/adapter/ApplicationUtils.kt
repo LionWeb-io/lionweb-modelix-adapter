@@ -1,4 +1,4 @@
-package io.lionweb
+package io.lionweb.modelix.adapter
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall

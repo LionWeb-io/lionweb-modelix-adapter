@@ -1,4 +1,4 @@
-package io.lionweb
+package io.lionweb.modelix.adapter
 
 import com.typesafe.config.ConfigFactory
 import io.ktor.client.HttpClientConfig

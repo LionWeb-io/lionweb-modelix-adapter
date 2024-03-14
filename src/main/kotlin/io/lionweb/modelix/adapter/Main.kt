@@ -93,26 +93,27 @@ fun Application.module() {
             // validate the input to fail early
             validateCountOrFail(input.count, call)
 
-            val modelClient = getModelClient(modelixFullUrl)
-            val range = (modelClient.getIdGenerator() as IdGenerator).generate(input.count)
+            getModelClient(modelixFullUrl).use { modelClient ->
+                val range = (modelClient.getIdGenerator() as IdGenerator).generate(input.count)
 
-            theLogger.info("Returning ${range.last.minus(range.first)} ids")
-            call.respond((range.first..range.last).map { it })
+                theLogger.info("Returning ${range.last.minus(range.first)} ids")
+                call.respond((range.first..range.last).map { it })
+            }
         }
 
         get<Paths.listPartitions> {
             val nodeStructures: MutableList<NodeStructure> = mutableListOf<NodeStructure>()
 
-            val modelClient = getModelClient(modelixFullUrl)
-
-            modelClient.listRepositories().forEach {repositoryId: RepositoryId ->
-                modelClient.runWrite(BranchReference(repositoryId = repositoryId, branchName = RepositoryId.DEFAULT_BRANCH)){
-                    nodeStructures.add(
-                        transformToLionWebPartition(
-                            it.getRoot(),
-                            repositoryId.toString()
+            getModelClient(modelixFullUrl).use { modelClient ->
+                modelClient.listRepositories().forEach {repositoryId: RepositoryId ->
+                    modelClient.runWrite(BranchReference(repositoryId = repositoryId, branchName = RepositoryId.DEFAULT_BRANCH)){
+                        nodeStructures.add(
+                            transformToLionWebPartition(
+                                it.getRoot(),
+                                repositoryId.toString()
+                            )
                         )
-                    )
+                    }
                 }
             }
 
@@ -135,25 +136,27 @@ fun Application.module() {
             }
 
             // execute the request
-            val modelClient = getModelClient(modelixFullUrl)
-            val existingPartitionNames = modelClient.listRepositories().map { it.id }
+            getModelClient(modelixFullUrl).use { modelClient ->
+                val existingPartitionNames = modelClient.listRepositories().map { it.id }
 
-            // make sure they do not already exist
-            if (existingPartitionNames.any { existingPartitionNames.any { partitionChunks.map { aChunk -> aChunk.id }.contains(it) } }) {
-                call.respond(
-                    message = "Partition(s) already exist: $partitionChunks",
-                    status = HttpStatusCode.UnprocessableEntity
-                )
-            }
+                // make sure they do not already exist
+                if (existingPartitionNames.any { existingPartitionNames.any { partitionChunks.map { aChunk -> aChunk.id }.contains(it) } }) {
+                    call.respond(
+                        message = "Partition(s) already exist: $partitionChunks",
+                        status = HttpStatusCode.UnprocessableEntity
+                    )
+                }
 
-            partitionChunks.forEach { aNewLionPartitionRoot ->
-                createRepository(modelClient, aNewLionPartitionRoot.id)
-                // replicate the new repository
-                modelClient.runWrite(BranchReference(repositoryId = RepositoryId(aNewLionPartitionRoot.id), branchName = RepositoryId.DEFAULT_BRANCH)){ newModelixRepositoryRoot ->
-                    markRepositoryRootAsLionwebPartition(newModelixRepositoryRoot, aNewLionPartitionRoot)
-                    // do NOT set children or references (partitions do not have those directly)
-                    // but we do set all properties
-                    addAllPropertiesFromLionNodeToModelixNode(aNewLionPartitionRoot, newModelixRepositoryRoot)
+                partitionChunks.forEach { aNewLionPartitionRoot ->
+                    createRepository(modelClient, aNewLionPartitionRoot.id)
+                    // replicate the new repository
+                    val repositoryId = RepositoryId(aNewLionPartitionRoot.id)
+                    modelClient.runWrite(BranchReference(repositoryId, branchName = RepositoryId.DEFAULT_BRANCH)) { newModelixRepositoryRoot ->
+                        markRepositoryRootAsLionwebPartition(newModelixRepositoryRoot, aNewLionPartitionRoot)
+                        // do NOT set children or references (partitions do not have those directly)
+                        // but we do set all properties
+                        addAllPropertiesFromLionNodeToModelixNode(aNewLionPartitionRoot, newModelixRepositoryRoot)
+                    }
                 }
             }
 
@@ -165,7 +168,7 @@ fun Application.module() {
             validateSerializationFormatVersion(chunk.serializationFormatVersion, call)
 
             // get context to fail early
-            getModelClient(modelixFullUrl).listRepositories().map { it.id }
+            getModelClient(modelixFullUrl).use { modelClient -> modelClient.listRepositories().map { it.id } }
             val partitionChunks = chunk.nodes?.filter {
                 it.properties?.any { it2 -> (it2.property.key == "partition" && it2.value.toBoolean()) } ?: false
             }?.map { aChunk -> aChunk.id } ?: emptyList()
@@ -185,9 +188,10 @@ fun Application.module() {
             }
 
             // actually apply changes
-            val modelClient = getModelClient(modelixFullUrl)
-            partitionChunks.forEach { aPartitionChunkToDelete ->
-                deleteRepository(modelClient, aPartitionChunkToDelete)
+            getModelClient(modelixFullUrl).use { modelClient ->
+                partitionChunks.forEach { aPartitionChunkToDelete ->
+                    deleteRepository(modelClient, aPartitionChunkToDelete)
+                }
             }
 
             theLogger.info("Deleted ${chunk.nodes?.size ?: 0} partitions: ${chunk.nodes?.map { it.id }}")
@@ -238,6 +242,8 @@ fun Application.module() {
                 }
             } catch (e: Exception){
                 call.respond(message = e.message.toString(), status = HttpStatusCode.InternalServerError)
+            } finally {
+                modelClient.close()
             }
 
             theLogger.info("Successfully added/updated ${chunk.nodes?.size ?: 0} nodes: ${chunk.nodes?.map { it.id }}")
@@ -300,6 +306,8 @@ fun Application.module() {
                 }
             } catch (e: Exception){
                call.respond(message = e.message.toString(), status = HttpStatusCode.InternalServerError)
+            } finally {
+                modelClient.close()
             }
 
 
@@ -331,6 +339,8 @@ fun Application.module() {
                 }
             } catch (e: Exception){
                 call.respond(message = e.message.toString(), status = HttpStatusCode.InternalServerError)
+            } finally {
+                modelClient.close()
             }
             call.respondText(text = "200: OK", status = HttpStatusCode.OK)
         }

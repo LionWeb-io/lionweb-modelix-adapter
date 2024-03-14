@@ -44,17 +44,6 @@ internal val LOGGER = KtorSimpleLogger("io.lionweb.adapter.modelix")
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
-// we install JSON content negotiation in the client to modelix
-val httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null
-private val clientConfig: (HttpClientConfig<*>) -> Unit by lazy {
-    {
-        it.install(ContentNegotiation) {
-            json()
-        }
-        httpClientConfig?.invoke(it)
-    }
-}
-
 fun Application.module() {
     val theLogger = log
     val modelixBaseUrl = config.getString("modelix.server.baseUrl")

@@ -156,7 +156,7 @@ paths:
           schema:
             type: string
         - name: nodes
-          description: List of node ids we want to retrieve from the repository.
+          description: List of node ids we want to remove from the repository.
           in: "query"
           required: true
           schema:
